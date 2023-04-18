@@ -1,0 +1,4 @@
+name: AdminUtils
+version: '${project.version}'
+main: de.gtec.adminutils.AdminUtils
+api-version: 1.18

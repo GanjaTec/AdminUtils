@@ -2,3 +2,27 @@ name: AdminUtils
 version: '${project.version}'
 main: de.gtec.adminutils.AdminUtils
 api-version: 1.18
+commands:
+  gamemode:
+    description: Change GameMode
+    aliases:
+      - gm
+  pingscan:
+    description: Pingscan for a Player's IP (IP.0/24)
+    aliases:
+      - pscan
+      - ps
+      - scan
+  item:
+    description: improved get-command
+    aliases:
+      - i
+  permission:
+    description: Set and edit Player permissions
+    aliases:
+      - perm
+  godmode:
+    description: Toggle god mode
+    aliases:
+      - tgm
+      - god

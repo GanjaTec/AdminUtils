@@ -26,24 +26,22 @@ public class GodmodeCmd implements CommandExecutor, TabCompleter {
             GodModeManager gmm = AdminUtils.getGodModeManager();
             String pf = AdminUtils.getPrefix();
             MsgSender msg = MsgSender.of(player);
+
+            if (gmm.isOnGodMode(player)) {
+                gmm.disable(player);
+                return msg.msg(pf + "§6GodMode:§4 disabled").send();
+            }
             return switch (len) {
                 case 0 -> {
-                    boolean cond = gmm.isOnGodMode(player);
-                    if (cond)
-                        gmm.disable(player);
-                    else
-                        gmm.setOnGodMode(player, GodMode.DEFAULT);
-                    yield msg.condition(cond)
-                            .msg(pf + "§6GodMode§a disabled")
-                            .orElse(pf + "§6GodMode§a enabled")
-                            .send();
+                    gmm.setOnGodMode(player, GodMode.DEFAULT);
+                    yield msg.msg(pf + "§6GodMode:§2 enabled").send();
                 }
                 case 1 -> {
                     GodMode mode = getMode(args, pf, msg);
                     if (mode == null) yield notFound(pf, msg, "Mode");
 
                     gmm.setOnGodMode(player, mode);
-                    yield msg.msg(pf + "§aGodMode applied on §6" + player.getName()).send();
+                    yield msg.msg(pf + "§6GodMode:§2 applied on §e" + player.getName()).send();
                 }
                 default -> {
                     GodMode mode = getMode(args, pf, msg);
@@ -54,7 +52,7 @@ public class GodmodeCmd implements CommandExecutor, TabCompleter {
                         yield notFound(pf, msg, "Target");
 
                     gmm.setOnGodMode(target, mode);
-                    yield msg.msg(pf + "§aGodMode applied on §6" + target.getName()).send();
+                    yield msg.msg(pf + "§6GodMode:§2 applied on §6" + target.getName()).send();
                 }
             };
         }
@@ -62,7 +60,7 @@ public class GodmodeCmd implements CommandExecutor, TabCompleter {
     }
 
     private boolean notFound(String pf, MsgSender msg, String target) {
-        return msg.msg(pf + "§6GodMode: §c" + target + " not found!").send();
+        return msg.msg(pf + "§6GodMode: §4" + target + " not found!").send();
     }
 
     private GodMode getMode(@NotNull String @NotNull [] args, String pf, MsgSender msg) {

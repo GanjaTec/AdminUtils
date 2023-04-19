@@ -7,7 +7,7 @@ public class GodMode {
     public static final GodMode
             DEFAULT = new GodMode(0x1),
             GLOWING = new GodMode(DEFAULT.mask | 0x2),
-            FLYING = new GodMode(GLOWING.mask | 0x4),
+            FLYING = new GodMode(DEFAULT.mask | 0x4),
             ALMIGHTY = new GodMode(DEFAULT.mask | GLOWING.mask | FLYING.mask),
             DISABLE = new GodMode(0x8);
 
